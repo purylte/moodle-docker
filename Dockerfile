@@ -1,4 +1,4 @@
-FROM docker.io/bitnami/moodle:latest
+FROM docker.io/bitnami/moodle:4.0.9
 
 EXPOSE 8080
 

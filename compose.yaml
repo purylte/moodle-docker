@@ -17,6 +17,7 @@ services:
       - ./moodle-database.sql:/docker-entrypoint-initdb.d/datadump.sql
 
   moodle:
+    image: purylte/moodle
     build: .
     ports:
       - "9999:8080"
