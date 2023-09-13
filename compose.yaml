@@ -1,7 +1,6 @@
 version: '3'
 
 services:
-
   db-madev:
     image: mysql:latest
     ports:
@@ -16,12 +15,25 @@ services:
     volumes:
       - ./moodle-database.sql:/docker-entrypoint-initdb.d/datadump.sql
 
+  nginx:
+    image: valian/docker-nginx-auto-ssl
+    restart: on-failure
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ssl_data:/etc/resty-auto-ssl
+    environment:
+      ALLOWED_DOMAINS: 'absujdbahsdjja.my.id'
+      SITES: 'absujdbahsdjja.my.id=moodle:80'
+
   moodle:
     image: metrodataacademy/ma-moodle
     build: .
     env_file:
       - .env
-    ports:
-      - "9999:9999"
     depends_on:
       - db-madev
+
+volumes:
+  ssl_data:
